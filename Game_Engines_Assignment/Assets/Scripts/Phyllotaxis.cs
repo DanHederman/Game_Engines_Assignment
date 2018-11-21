@@ -6,14 +6,15 @@ public class Phyllotaxis : MonoBehaviour {
 
 
     public GameObject Dot;
-    public float Degree, C;
-    public int N;
-    public float DotScale;
+    public float Degree, Scale;
+    public int NumberStart;
+    private int Number;
+    private TrailRenderer Trail_Renderer;
 
-    private Vector2 CalcPhyllotaxis(float Deg, float Scale, int Count)
+    private Vector2 CalcPhyllotaxis(float Deg, float Scale, int number)
     {
-        double angle = Count * (Deg * Mathf.Deg2Rad);
-        float r = Scale * Mathf.Sqrt(Count);
+        double angle = number * (Deg * Mathf.Deg2Rad);
+        float r = Scale * Mathf.Sqrt(number);
         float x = r * (float)System.Math.Cos(angle);
         float y = r * (float)System.Math.Sin(angle);
         Vector2 Vec2 = new Vector2(x, y);
@@ -27,16 +28,39 @@ public class Phyllotaxis : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Awake()
+    {
+        Trail_Renderer = GetComponent<TrailRenderer>();
+        Number = NumberStart;
+        transform.localPosition = CalcPhyllotaxis(Degree, Scale, Number);
+
+    }
+
+    private void FixedUpdate()
+    {
+        PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
+        transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+        Number++;
+    }
+
+
+
+
+
+
+
+    /*
+    void Update () {
         if (Input.GetKey(KeyCode.Space))
         {
-            PhyllotaxisPosition = CalcPhyllotaxis(Degree, C, N);
+            PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
             GameObject DotInstance = (GameObject)Instantiate(Dot);
             DotInstance.transform.position = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
             DotInstance.transform.localScale = new Vector3(DotScale, DotScale, DotScale);
-            N++;
+            Number++;
         }
+        
 	}
+    */
 }
