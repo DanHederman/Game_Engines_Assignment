@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 00000000000000000000000000000000
+  productGUID: 64be69d49e335a645b9403a91ff8013e
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -720,7 +720,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
   cloudProjectId: 031a9628-e173-4c4a-abaa-4a6fd48e2faf
-  projectName: 
+  projectName: Game_Engines_Assignment (1)
   organizationId: mlpquadzilla
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
