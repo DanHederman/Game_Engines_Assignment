@@ -48,6 +48,15 @@ public class Phyllotaxis : MonoBehaviour {
 		
 	}
 
+    void SetLerpPos()
+    {
+        
+        PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
+        _startPos = this.transform.localPosition;
+        _endPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+
+    }
+
     private void Awake()
     {
         _trailRenderer = GetComponent<TrailRenderer>();
@@ -62,15 +71,6 @@ public class Phyllotaxis : MonoBehaviour {
             _isLerping = true;
             SetLerpPos();
         }
-    }
-
-    void SetLerpPos()
-    {
-        
-        PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
-        _startPos = this.transform.position;
-        _endPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-
     }
 
 
@@ -99,6 +99,7 @@ public class Phyllotaxis : MonoBehaviour {
             _number += _stepSize;
             _currentIteration++;
         }
+        
     }
 
     /*
