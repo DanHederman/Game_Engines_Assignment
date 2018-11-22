@@ -5,10 +5,23 @@ using UnityEngine;
 public class Phyllotaxis : MonoBehaviour {
 
 
-    public GameObject Dot;
+    //public GameObject Dot;
     public float Degree, Scale;
     public int NumberStart;
     private int Number;
+
+    public int StepSize;
+    public int MaxIteration;
+    public int CurrentIteration;
+    //Lerp
+    public bool UseLerp;
+    public float IntLerp;
+    private bool IsLerping;
+
+
+    public Vector3 StartPos, EndPos;
+    private float TimeLerpStart;
+
     private TrailRenderer Trail_Renderer;
 
     private Vector2 CalcPhyllotaxis(float Deg, float Scale, int number)
@@ -35,13 +48,51 @@ public class Phyllotaxis : MonoBehaviour {
         Number = NumberStart;
         transform.localPosition = CalcPhyllotaxis(Degree, Scale, Number);
 
+        if (UseLerp)
+        {
+            StartLerp();
+        }
+    }
+
+    void StartLerp()
+    {
+        IsLerping = true;
+        TimeLerpStart = Time.time;
+        PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
+        StartPos = this.transform.position;
+        EndPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+
     }
 
     private void FixedUpdate()
     {
-        PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
-        transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-        Number++;
+        if (UseLerp)
+        {
+            float timeSinceLerp = Time.time - TimeLerpStart;
+            float PercentComplete = timeSinceLerp / IntLerp;
+            transform.localPosition = Vector3.Lerp(StartPos, EndPos, PercentComplete);
+            if(PercentComplete >= .97f)
+            {
+                transform.localPosition = EndPos;
+                Number += StepSize;
+                CurrentIteration++;
+                if(CurrentIteration <= MaxIteration)
+                {
+                    StartLerp();
+                }
+                else
+                {
+                    IsLerping = false;
+                }
+            }
+        }
+        else
+        {
+            PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
+            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+            Number += StepSize;
+            CurrentIteration++;
+        }
     }
 
 
