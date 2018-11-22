@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Phyllotaxis : MonoBehaviour {
 
+    public AudioPeer _audioPeer;
+
+    private Material _trailMat;
+    public Color _trailColour;
 
     //public GameObject Dot;
     public float _degree, _scale;
@@ -13,11 +17,13 @@ public class Phyllotaxis : MonoBehaviour {
 
     //Lerping
     public bool _useLerping;
-    public float _intervalLerp;
+    
     private bool _isLerping;
     public Vector3 _startPos, _endPos;
-
-    private float _timeStartedLerping;
+    private float _lerpPosTimer, _lerpPosSpeed;
+    public Vector2 _lerpPosSpeedMinMax;
+    public AnimationCurve _lerpPosAnimCurve;
+    public int _lerpPosBand;
 
     private int _number;
     private int _currentIteration;
@@ -45,19 +51,22 @@ public class Phyllotaxis : MonoBehaviour {
     private void Awake()
     {
         Trail_Renderer = GetComponent<TrailRenderer>();
+        _trailMat = new Material(Trail_Renderer.material);
+        _trailMat.SetColor("_tintColour", _trailColour);
+        Trail_Renderer.material = _trailMat;
         _number = _numberStart;
         transform.localPosition = CalcPhyllotaxis(_degree, _scale, _number);
 
         if (_useLerping)
         {
-            StartLerp();
+            _isLerping = true;
+            SetLerpPos();
         }
     }
 
-    void StartLerp()
+    void SetLerpPos()
     {
-        _isLerping = true;
-        _timeStartedLerping = Time.time;
+        
         PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
         _startPos = this.transform.position;
         _endPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
@@ -65,7 +74,32 @@ public class Phyllotaxis : MonoBehaviour {
     }
 
 
-
+    void Update()
+    {
+        if (_useLerping)
+        {
+            if (_isLerping)
+            {
+                _lerpPosSpeed = Mathf.Lerp(_lerpPosSpeedMinMax.x, _lerpPosSpeedMinMax.y, _lerpPosAnimCurve.Evaluate(_audioPeer._audioBand[_lerpPosBand]));
+                _lerpPosTimer += Time.deltaTime * _lerpPosSpeed;
+                transform.localPosition = Vector3.Lerp(_startPos, _endPos, Mathf.Clamp01(_lerpPosTimer));
+                if(_lerpPosTimer >= 1)
+                {
+                    _lerpPosTimer = -1;
+                    _number += _stepSize;
+                    _currentIteration++;
+                    SetLerpPos();
+                }
+            }           
+        }
+        if(!_useLerping)
+        {
+            PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
+            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+            _number += _stepSize;
+            _currentIteration++;
+        }
+    }
 
     /*
     private void FixedUpdate()
