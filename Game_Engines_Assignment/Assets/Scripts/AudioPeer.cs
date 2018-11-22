@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent (typeof (AudioSource))]
 
@@ -8,7 +6,7 @@ public class AudioPeer : MonoBehaviour {
 
     AudioSource _audioSource;
 
-    public static float[] _samples = new float[512];
+    public float[] _samples = new float[512];
 
 	// Use this for initialization
 	void Start () {
