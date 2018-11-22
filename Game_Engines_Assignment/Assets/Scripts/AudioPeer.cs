@@ -6,7 +6,8 @@ public class AudioPeer : MonoBehaviour {
 
     AudioSource _audioSource;
 
-    float[] _samples = new float[512];
+    public static float[] _samplesLeft = new float[512];
+    public static float[] _samplesRight = new float[512];
 
     float[] _freqBand = new float[8];
 
@@ -20,9 +21,21 @@ public class AudioPeer : MonoBehaviour {
     public static float[] _audioBand = new float[8];
     public static float[] _audioBandBuffer = new float[8];
 
+    public static float _Amplitude, _AmplitudeBuffer;
+    private float _AmplitideHighest;
+    public float _AudioProfile;
+
+
+    public enum _channel{ STEREO,
+    LEFT,
+    RIGHT};
+
+    public _channel channel = new _channel();
+
 	// Use this for initialization
 	void Start () {
         _audioSource = GetComponent<AudioSource>();
+        AudioProfile(_AudioProfile);
 	}
 	
 	// Update is called once per frame
@@ -36,7 +49,8 @@ public class AudioPeer : MonoBehaviour {
 
     void GetSpectrumAudioSource()
     {
-        _audioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
+        _audioSource.GetSpectrumData(_samplesLeft, 0, FFTWindow.Blackman);
+        _audioSource.GetSpectrumData(_samplesRight, 1, FFTWindow.Blackman);
     }
 
     void MakeFrequencyBands()
@@ -55,7 +69,20 @@ public class AudioPeer : MonoBehaviour {
             }
             for(int j = 0; j < sampleCount; j++)
             {
-                average += _samples[count] * (count + 1);
+                if(channel == _channel.STEREO)
+                {
+                    average += _samplesLeft[count] + _samplesRight[count] * (count + 1);
+                }
+
+                if (channel == _channel.RIGHT)
+                {
+                    average +=  _samplesRight[count] * (count + 1);
+                }
+                if (channel == _channel.LEFT)
+                {
+                    average += _samplesLeft[count] * (count + 1);
+                }
+                
                 count++;
             }
             average /= count;
@@ -98,6 +125,29 @@ public class AudioPeer : MonoBehaviour {
 
     void GetAmplitude()
     {
+        float _CurrentAmplitude = 0;
+        float _CurrentAmplitudeBuffer = 0;
 
+        for(int i = 0; i < 8; i++)
+        {
+            _CurrentAmplitude += _audioBand[i];
+            _CurrentAmplitude += _audioBandBuffer[i];
+        }
+        if(_CurrentAmplitude > _AmplitideHighest)
+        {
+            _AmplitideHighest = +_CurrentAmplitude;
+        }
+
+        _Amplitude = _CurrentAmplitude / _AmplitideHighest;
+        _AmplitudeBuffer = _CurrentAmplitudeBuffer / _AmplitideHighest;
+    }
+
+    void AudioProfile(float ausioProfile)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            _frequencyBandHighest[i] = 0;
+
+        }
     }
 }
