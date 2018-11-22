@@ -6,21 +6,21 @@ public class Phyllotaxis : MonoBehaviour {
 
 
     //public GameObject Dot;
-    public float Degree, Scale;
-    public int NumberStart;
-    private int Number;
+    public float _degree, _scale;
+    public int _numberStart;
+    public int _stepSize;
+    public int _maxIteration;
 
-    public int StepSize;
-    public int MaxIteration;
-    public int CurrentIteration;
-    //Lerp
-    public bool UseLerp;
-    public float IntLerp;
-    private bool IsLerping;
+    //Lerping
+    public bool _useLerping;
+    public float _intervalLerp;
+    private bool _isLerping;
+    public Vector3 _startPos, _endPos;
 
+    private float _timeStartedLerping;
 
-    public Vector3 StartPos, EndPos;
-    private float TimeLerpStart;
+    private int _number;
+    private int _currentIteration;
 
     private TrailRenderer Trail_Renderer;
 
@@ -45,10 +45,10 @@ public class Phyllotaxis : MonoBehaviour {
     private void Awake()
     {
         Trail_Renderer = GetComponent<TrailRenderer>();
-        Number = NumberStart;
-        transform.localPosition = CalcPhyllotaxis(Degree, Scale, Number);
+        _number = _numberStart;
+        transform.localPosition = CalcPhyllotaxis(_degree, _scale, _number);
 
-        if (UseLerp)
+        if (_useLerping)
         {
             StartLerp();
         }
@@ -56,14 +56,18 @@ public class Phyllotaxis : MonoBehaviour {
 
     void StartLerp()
     {
-        IsLerping = true;
-        TimeLerpStart = Time.time;
-        PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
-        StartPos = this.transform.position;
-        EndPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+        _isLerping = true;
+        _timeStartedLerping = Time.time;
+        PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
+        _startPos = this.transform.position;
+        _endPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
 
     }
 
+
+
+
+    /*
     private void FixedUpdate()
     {
         if (UseLerp)
@@ -97,7 +101,7 @@ public class Phyllotaxis : MonoBehaviour {
 
 
 
-
+    */
 
 
 
