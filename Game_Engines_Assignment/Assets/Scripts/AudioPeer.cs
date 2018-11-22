@@ -18,7 +18,7 @@ public class AudioPeer : MonoBehaviour {
 
 
     float[] _frequencyBandHighest = new float[8];
-    public static float[] _audioBand = new float[8];
+    public float[] _audioBand = new float[8];
     public static float[] _audioBandBuffer = new float[8];
 
     public static float _Amplitude, _AmplitudeBuffer;

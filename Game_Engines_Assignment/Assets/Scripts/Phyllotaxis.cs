@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Phyllotaxis : MonoBehaviour {
 
-    public AudioPeer AudioPeer;
+    public AudioPeer _audioPeer;
 
     private Material _trailMat;
     public Color _trailColour;
@@ -28,7 +28,7 @@ public class Phyllotaxis : MonoBehaviour {
     private int _number;
     private int _currentIteration;
 
-    private TrailRenderer Trail_Renderer;
+    private TrailRenderer _trailRenderer;
 
     private Vector2 CalcPhyllotaxis(float Deg, float Scale, int number)
     {
@@ -50,10 +50,10 @@ public class Phyllotaxis : MonoBehaviour {
 
     private void Awake()
     {
-        Trail_Renderer = GetComponent<TrailRenderer>();
-        _trailMat = new Material(Trail_Renderer.material);
+        _trailRenderer = GetComponent<TrailRenderer>();
+        _trailMat = new Material(_trailRenderer.material);
         _trailMat.SetColor("_tintColour", _trailColour);
-        Trail_Renderer.material = _trailMat;
+        _trailRenderer.material = _trailMat;
         _number = _numberStart;
         transform.localPosition = CalcPhyllotaxis(_degree, _scale, _number);
 
@@ -80,12 +80,12 @@ public class Phyllotaxis : MonoBehaviour {
         {
             if (_isLerping)
             {
-                _lerpPosSpeed = Mathf.Lerp(_lerpPosSpeedMinMax.x, _lerpPosSpeedMinMax.y, _lerpPosAnimCurve.Evaluate(AudioPeer._audioBand[_lerpPosBand]));
+                _lerpPosSpeed = Mathf.Lerp(_lerpPosSpeedMinMax.x, _lerpPosSpeedMinMax.y, _lerpPosAnimCurve.Evaluate(_audioPeer._audioBand[_lerpPosBand]));
                 _lerpPosTimer += Time.deltaTime * _lerpPosSpeed;
                 transform.localPosition = Vector3.Lerp(_startPos, _endPos, Mathf.Clamp01(_lerpPosTimer));
                 if(_lerpPosTimer >= 1)
                 {
-                    _lerpPosTimer = -1;
+                    _lerpPosTimer -= 1;
                     _number += _stepSize;
                     _currentIteration++;
                     SetLerpPos();
