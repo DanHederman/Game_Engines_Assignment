@@ -6,45 +6,82 @@ public class AudioPeer : MonoBehaviour {
 
     AudioSource _audioSource;
 
-    public float[] _samplesLeft = new float[512];
-    public float[] _samplesRight = new float[512];
+    //Mic Input
+    public bool _useMicrophone;
+    public AudioClip _audioClip;
 
-    float[] _freqBand = new float[8];
+    private float[] _samplesLeft = new float[512];
+    private float[] _samplesRight = new float[512];
 
-    float[] _bandBuffer = new float[8];
+    private float[] _freqBand = new float[8];
 
-    float[] _bufferDecrase = new float[8];
+    private float[] _bandBuffer = new float[8];
+
+    private float[] _bufferDecrase = new float[8];
+
+    private float[] _freqBandHighest = new float[8];
 
 
+    [HideInInspector]
+    public float[] _audioBand, _audioBandBuffer;
 
-    float[] _frequencyBandHighest = new float[8];
-    public float[] _audioBand = new float[8];
-    public float[] _audioBandBuffer = new float[8];
-
+    [HideInInspector]
     public float _Amplitude, _AmplitudeBuffer;
     private float _AmplitideHighest;
-    public float _AudioProfile;
 
 
-    public enum _channel{ STEREO,
-    LEFT,
-    RIGHT};
+    public float _audioProfile;
+
+
+    public enum _channel{ Stereo,
+    Left,
+    Right};
 
     public _channel channel = new _channel();
 
-	// Use this for initialization
-	void Start () {
+    float[] _freqBand64 = new float[64];
+    float[] _bandBuffer64 = new float[64];
+    float[] _bufferDecrease64 = new float[64];
+    float[] _freqBandHighest64 = new float[64];
+
+    [HideInInspector]
+    public float[] _audioBand64, _audioBandBuffer64;
+
+
+
+    // Use this for initialization
+    void Start () {
+
+        _audioBand = new float[8];
+        _audioBandBuffer = new float[8];
+        _audioBand64 = new float[64];
+        _audioBandBuffer64 = new float[64];
         _audioSource = GetComponent<AudioSource>();
-        AudioProfile(_AudioProfile);
+        AudioProfile(_audioProfile);
+
+        if (_useMicrophone)
+        {
+
+        }
+        else
+        {
+
+        }
+
+        _audioSource.Play();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        GetSpectrumAudioSource();
-        MakeFrequencyBands();
-        BandBuffer();
-        CreateAudioBands();
-        GetAmplitude();
+
+        if(_audioSource.clip != null)
+        {
+            GetSpectrumAudioSource();
+            MakeFrequencyBands();
+            BandBuffer();
+            CreateAudioBands();
+            GetAmplitude();
+        }
 	}
 
     void GetSpectrumAudioSource()
@@ -69,16 +106,16 @@ public class AudioPeer : MonoBehaviour {
             }
             for(int j = 0; j < sampleCount; j++)
             {
-                if(channel == _channel.STEREO)
+                if(channel == _channel.Stereo)
                 {
                     average += _samplesLeft[count] + _samplesRight[count] * (count + 1);
                 }
 
-                if (channel == _channel.RIGHT)
+                if (channel == _channel.Right)
                 {
                     average +=  _samplesRight[count] * (count + 1);
                 }
-                if (channel == _channel.LEFT)
+                if (channel == _channel.Left)
                 {
                     average += _samplesLeft[count] * (count + 1);
                 }
@@ -112,14 +149,14 @@ public class AudioPeer : MonoBehaviour {
     {
         for(int i = 0; i < 8; i++)
         {
-            if(_freqBand[i] > _frequencyBandHighest[i])
+            if(_freqBand[i] > _freqBandHighest[i])
             {
-                _frequencyBandHighest[i] = _freqBand[i];
+                _freqBandHighest[i] = _freqBand[i];
 
             }
 
-            _audioBand[i] = (_freqBand[i] / _frequencyBandHighest[i]);
-            _bandBuffer[i] = (_bandBuffer[i] / _frequencyBandHighest[i]);
+            _audioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
+            _bandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
         }
     }
 
@@ -146,7 +183,7 @@ public class AudioPeer : MonoBehaviour {
     {
         for(int i = 0; i < 8; i++)
         {
-            _frequencyBandHighest[i] = 0;
+            _freqBandHighest[i] = 0;
 
         }
     }
