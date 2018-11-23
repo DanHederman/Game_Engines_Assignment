@@ -9,6 +9,7 @@ public class AudioPeer : MonoBehaviour {
     //Mic Input
     public bool _useMicrophone;
     public AudioClip _audioClip;
+    public string selectedDevice;
 
     private float[] _samplesLeft = new float[512];
     private float[] _samplesRight = new float[512];
@@ -61,11 +62,19 @@ public class AudioPeer : MonoBehaviour {
 
         if (_useMicrophone)
         {
-
+            if(Microphone.devices.Length > 0)
+            {
+                selectedDevice = Microphone.devices[0].ToString();
+                _audioSource.clip = Microphone.Start(selectedDevice, true, 10, AudioSettings.outputSampleRate);
+            }
+            else
+            {
+                _useMicrophone = false;
+            }
         }
         else
         {
-
+            _audioSource.clip = _audioClip;
         }
 
         _audioSource.Play();
