@@ -1,46 +1,51 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Audio;
 
-[RequireComponent (typeof (AudioSource))]
+[RequireComponent(typeof(AudioSource))]
 
-public class AudioPeer : MonoBehaviour {
+public class AudioPeer : MonoBehaviour
+{
 
     AudioSource _audioSource;
 
     //Mic Input
-    public bool _useMicrophone;
-    public AudioClip _audioClip;
-    public string selectedDevice;
-    public AudioMixerGroup _mixerGroupMic, _mixerGroupMaster;
+    public bool UseMicrophone;
+    public AudioClip AudioClip;
+    public string SelectedDevice;
+    public AudioMixerGroup MixerGroupMic, MixerGroupMaster;
 
-    private float[] _samplesLeft = new float[512];
-    private float[] _samplesRight = new float[512];
+    private readonly float[] _samplesLeft = new float[512];
+    private readonly float[] _samplesRight = new float[512];
 
-    private float[] _freqBand = new float[8];
+    private readonly float[] _freqBand = new float[8];
 
-    private float[] _bandBuffer = new float[8];
+    private readonly float[] _bandBuffer = new float[8];
 
-    private float[] _bufferDecrase = new float[8];
+    private readonly float[] _bufferDecrease = new float[8];
 
-    private float[] _freqBandHighest = new float[8];
+    private readonly float[] _freqBandHighest = new float[8];
 
-
-    [HideInInspector]
-    public float[] _audioBand, _audioBandBuffer;
 
     [HideInInspector]
-    public float _Amplitude, _AmplitudeBuffer;
-    private float _AmplitideHighest;
+    public float[] AudioBand, AudioBandBuffer;
+
+    [HideInInspector]
+    public float Amplitude, AmplitudeBuffer;
+    public float _amplitideHighest;
 
 
     public float _audioProfile;
 
 
-    public enum _channel{ Stereo,
-    Left,
-    Right};
+    public enum Channel
+    {
+        Stereo,
+        Left,
+        Right
+    };
 
-    public _channel channel = new _channel();
+    public Channel channel = new Channel();
 
     float[] _freqBand64 = new float[64];
     float[] _bandBuffer64 = new float[64];
@@ -53,49 +58,48 @@ public class AudioPeer : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
-        _audioBand = new float[8];
-        _audioBandBuffer = new float[8];
+        AudioBand = new float[8];
+        AudioBandBuffer = new float[8];
         _audioBand64 = new float[64];
         _audioBandBuffer64 = new float[64];
         _audioSource = GetComponent<AudioSource>();
         AudioProfile(_audioProfile);
 
-        if (_useMicrophone)
+        if (UseMicrophone)
         {
-            if(Microphone.devices.Length > 0)
+            if (Microphone.devices.Length > 0)
             {
-                selectedDevice = Microphone.devices[0].ToString();
-                _audioSource.outputAudioMixerGroup = _mixerGroupMic;
-                _audioSource.clip = Microphone.Start(selectedDevice, true, 10, AudioSettings.outputSampleRate);
+                SelectedDevice = Microphone.devices[0].ToString();
+                _audioSource.outputAudioMixerGroup = MixerGroupMic;
+                _audioSource.clip = Microphone.Start(SelectedDevice, true, 10, AudioSettings.outputSampleRate);
             }
             else
             {
-                _audioSource.outputAudioMixerGroup = _mixerGroupMaster;
-                _useMicrophone = false;
+                _audioSource.outputAudioMixerGroup = MixerGroupMaster;
+                UseMicrophone = false;
             }
         }
         else
         {
-            _audioSource.clip = _audioClip;
+            _audioSource.clip = AudioClip;
         }
 
         _audioSource.Play();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-        if(_audioSource.clip != null)
-        {
-            GetSpectrumAudioSource();
-            MakeFrequencyBands();
-            BandBuffer();
-            CreateAudioBands();
-            GetAmplitude();
-        }
-	}
+    // Update is called once per frame
+    private void Update()
+    {
+        if (_audioSource.clip == null) return;
+        GetSpectrumAudioSource();
+        MakeFrequencyBands();
+        BandBuffer();
+        CreateAudioBands();
+        GetAmplitude();
+    }
 
     void GetSpectrumAudioSource()
     {
@@ -103,36 +107,37 @@ public class AudioPeer : MonoBehaviour {
         _audioSource.GetSpectrumData(_samplesRight, 1, FFTWindow.Blackman);
     }
 
-    void MakeFrequencyBands()
+    private void MakeFrequencyBands()
     {
-        int count = 0;
+        var count = 0;
 
-        for(int i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
         {
 
             float average = 0;
-            int sampleCount = (int)Mathf.Pow(2, i) * 2;
+            var sampleCount = (int)Mathf.Pow(2, i) * 2;
 
-            if(i == 7)
+            if (i == 7)
             {
                 sampleCount += 2;
             }
-            for(int j = 0; j < sampleCount; j++)
+            for (var j = 0; j < sampleCount; j++)
             {
-                if(channel == _channel.Stereo)
+                switch (channel)
                 {
-                    average += _samplesLeft[count] + _samplesRight[count] * (count + 1);
+                    case Channel.Stereo:
+                        average += _samplesLeft[count] + _samplesRight[count] * (count + 1);
+                        break;
+                    case Channel.Right:
+                        average += _samplesRight[count] * (count + 1);
+                        break;
+                    case Channel.Left:
+                        average += _samplesLeft[count] * (count + 1);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
-                if (channel == _channel.Right)
-                {
-                    average +=  _samplesRight[count] * (count + 1);
-                }
-                if (channel == _channel.Left)
-                {
-                    average += _samplesLeft[count] * (count + 1);
-                }
-                
                 count++;
             }
             average /= count;
@@ -141,60 +146,59 @@ public class AudioPeer : MonoBehaviour {
         }
     }
 
-    void BandBuffer()
+    private void BandBuffer()
     {
-        for(int g = 0; g < 8; ++g)
+        for (var g = 0; g < 8; ++g)
         {
-            if(_freqBand [g] > _bandBuffer[g]){
+            if (_freqBand[g] > _bandBuffer[g])
+            {
                 _bandBuffer[g] = _freqBand[g];
-                _bufferDecrase[g] = 0.005f;
+                _bufferDecrease[g] = 0.005f;
             }
 
-            if(_freqBand [g] < _bandBuffer[g])
-            {
-                _bandBuffer[g] -= _bufferDecrase[g];
-                _bufferDecrase[g] *= 1.2f;
-            }
+            if (!(_freqBand[g] < _bandBuffer[g])) continue;
+            _bandBuffer[g] -= _bufferDecrease[g];
+            _bufferDecrease[g] *= 1.2f;
         }
     }
 
-    void CreateAudioBands()
+    public void CreateAudioBands()
     {
-        for(int i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
         {
-            if(_freqBand[i] > _freqBandHighest[i])
+            if (_freqBand[i] > _freqBandHighest[i])
             {
                 _freqBandHighest[i] = _freqBand[i];
 
             }
 
-            _audioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
+            AudioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
             _bandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
         }
     }
 
-    void GetAmplitude()
+    private void GetAmplitude()
     {
-        float _CurrentAmplitude = 0;
-        float _CurrentAmplitudeBuffer = 0;
+        float currentAmplitude = 0;
+        float currentAmplitudeBuffer = 0;
 
-        for(int i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
         {
-            _CurrentAmplitude += _audioBand[i];
-            _CurrentAmplitude += _audioBandBuffer[i];
+            currentAmplitude += AudioBand[i];
+            currentAmplitude += AudioBandBuffer[i];
         }
-        if(_CurrentAmplitude > _AmplitideHighest)
+        if (currentAmplitude > _amplitideHighest)
         {
-            _AmplitideHighest = +_CurrentAmplitude;
+            _amplitideHighest = +currentAmplitude;
         }
 
-        _Amplitude = _CurrentAmplitude / _AmplitideHighest;
-        _AmplitudeBuffer = _CurrentAmplitudeBuffer / _AmplitideHighest;
+        Amplitude = currentAmplitude / _amplitideHighest;
+        AmplitudeBuffer = currentAmplitudeBuffer / _amplitideHighest;
     }
 
-    void AudioProfile(float ausioProfile)
+    public void AudioProfile(float audioProfile)
     {
-        for(int i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
         {
             _freqBandHighest[i] = 0;
 

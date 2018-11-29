@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phyllotaxis : MonoBehaviour {
+public class Phyllotaxis : MonoBehaviour
+{
 
     public AudioPeer _audioPeer;
 
     private Material _trailMat;
-    public Color _trailColour;
+    public Color TrailColour;
 
     //public GameObject Dot;
-    public float _degree, _scale;
-    public int _numberStart;
-    public int _stepSize;
-    public int _maxIteration;
+    public float Degree, Scale;
+    public int NumberStart;
+    public int StepSize;
+    public int MaxIteration;
 
     //Lerping
-    public bool _useLerping;
-    
+    public bool UseLerping;
+
     private bool _isLerping;
-    public Vector3 _startPos, _endPos;
+    public Vector3 StartPos, EndPos;
     private float _lerpPosTimer, _lerpPosSpeed;
-    public Vector2 _lerpPosSpeedMinMax;
-    public AnimationCurve _lerpPosAnimCurve;
-    public int _lerpPosBand;
+    public Vector2 LerpPosSpeedMinMax;
+    public AnimationCurve LerpPosAnimCurve;
+    public int LerpPosBand;
 
     private int _number;
     private int _currentIteration;
@@ -33,124 +34,138 @@ public class Phyllotaxis : MonoBehaviour {
     private Vector2 CalcPhyllotaxis(float Deg, float Scale, int number)
     {
         double angle = number * (Deg * Mathf.Deg2Rad);
-        float r = Scale * Mathf.Sqrt(number);
-        float x = r * (float)System.Math.Cos(angle);
-        float y = r * (float)System.Math.Sin(angle);
-        Vector2 Vec2 = new Vector2(x, y);
+        var r = Scale * Mathf.Sqrt(number);
+        var x = r * (float)System.Math.Cos(angle);
+        var y = r * (float)System.Math.Sin(angle);
+        var Vec2 = new Vector2(x, y);
         return Vec2;
     }
 
     private Vector2 PhyllotaxisPosition;
 
+    private bool Forward;
+    public bool Repeat;
+    public bool Invert;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    //Scale
+    public bool UseScaleAnim, UseScaleCurve;
+    public Vector2 ScaleAnimMinMax;
+    public AnimationCurve ScaleAnimCurve;
+    public float ScaleAnimSpeed;
+    public int ScaleBand;
+    private float ScaleTmr, CurrentScale;
 
-    void SetLerpPos()
+    public void SetLerpPos()
     {
-        
-        PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
-        _startPos = this.transform.localPosition;
-        _endPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+
+        PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+        StartPos = transform.localPosition;
+        EndPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
 
     }
 
     private void Awake()
     {
+        CurrentScale = Scale;
         _trailRenderer = GetComponent<TrailRenderer>();
         _trailMat = new Material(_trailRenderer.material);
-        _trailMat.SetColor("_tintColour", _trailColour);
+        _trailMat.SetColor("_tintColour", TrailColour);
         _trailRenderer.material = _trailMat;
-        _number = _numberStart;
-        transform.localPosition = CalcPhyllotaxis(_degree, _scale, _number);
+        _number = NumberStart;
+        transform.localPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+        Forward = true;
 
-        if (_useLerping)
-        {
-            _isLerping = true;
-            SetLerpPos();
-        }
+
+        if (!UseLerping) return;
+        _isLerping = true;
+        SetLerpPos();
     }
 
 
-    void Update()
+    private void Update()
     {
-        if (_useLerping)
-        {
-            if (_isLerping)
-            {
-                _lerpPosSpeed = Mathf.Lerp(_lerpPosSpeedMinMax.x, _lerpPosSpeedMinMax.y, _lerpPosAnimCurve.Evaluate(_audioPeer._audioBand[_lerpPosBand]));
-                _lerpPosTimer += Time.deltaTime * _lerpPosSpeed;
-                transform.localPosition = Vector3.Lerp(_startPos, _endPos, Mathf.Clamp01(_lerpPosTimer));
-                if(_lerpPosTimer >= 1)
-                {
-                    _lerpPosTimer -= 1;
-                    _number += _stepSize;
-                    _currentIteration++;
-                    SetLerpPos();
-                }
-            }           
-        }
-        if(!_useLerping)
-        {
-            PhyllotaxisPosition = CalcPhyllotaxis(_degree, _scale, _number);
-            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-            _number += _stepSize;
-            _currentIteration++;
-        }
-        
-    }
 
-    /*
-    private void FixedUpdate()
-    {
-        if (UseLerp)
+        if (UseScaleAnim)
         {
-            float timeSinceLerp = Time.time - TimeLerpStart;
-            float PercentComplete = timeSinceLerp / IntLerp;
-            transform.localPosition = Vector3.Lerp(StartPos, EndPos, PercentComplete);
-            if(PercentComplete >= .97f)
+            if (UseScaleCurve)
             {
-                transform.localPosition = EndPos;
-                Number += StepSize;
-                CurrentIteration++;
-                if(CurrentIteration <= MaxIteration)
+                ScaleTmr += (ScaleAnimSpeed * _audioPeer.AudioBand[ScaleBand]) * Time.deltaTime;
+
+                if (ScaleTmr >= 1)
                 {
-                    StartLerp();
+                    ScaleTmr -= 1;
                 }
-                else
-                {
-                    IsLerping = false;
-                }
+                CurrentScale = Mathf.Lerp(ScaleAnimMinMax.x, ScaleAnimMinMax.y, ScaleAnimCurve.Evaluate(ScaleTmr));
+            }
+            else
+            {
+                CurrentScale = Mathf.Lerp(ScaleAnimMinMax.x, ScaleAnimMinMax.y, _audioPeer.AudioBand[ScaleBand]);
             }
         }
         else
         {
-            PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
-            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-            Number += StepSize;
-            CurrentIteration++;
+
         }
-    }
 
 
-
-    */
-
-
-
-    /*
-    void Update () {
-        if (Input.GetKey(KeyCode.Space))
+        if (UseLerping)
         {
-            PhyllotaxisPosition = CalcPhyllotaxis(Degree, Scale, Number);
-            GameObject DotInstance = (GameObject)Instantiate(Dot);
-            DotInstance.transform.position = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-            DotInstance.transform.localScale = new Vector3(DotScale, DotScale, DotScale);
-            Number++;
+            if (_isLerping)
+            {
+                _lerpPosSpeed = Mathf.Lerp(LerpPosSpeedMinMax.x, LerpPosSpeedMinMax.y, LerpPosAnimCurve.Evaluate(_audioPeer.AudioBand[LerpPosBand]));
+                _lerpPosTimer += Time.deltaTime * _lerpPosSpeed;
+                transform.localPosition = Vector3.Lerp(StartPos, EndPos, Mathf.Clamp01(_lerpPosTimer));
+                if (_lerpPosTimer >= 1)
+                {
+                    _lerpPosTimer -= 1;
+
+                    if (Forward)
+                    {
+                        _number += StepSize;
+                        _currentIteration++;
+                    }
+                    else
+                    {
+                        _number -= StepSize;
+                        _currentIteration--;
+                    }
+                    if ((_currentIteration > 0) && (_currentIteration < MaxIteration))
+                    {
+                        SetLerpPos();
+                    }
+                    //Current iter hit 0/max
+                    else
+                    {
+                        if (Repeat)
+                        {
+                            if (Invert)
+                            {
+                                Forward = !Forward;
+                                SetLerpPos();
+                            }
+                            else
+                            {
+                                _number = NumberStart;
+                                _currentIteration = 0;
+                                SetLerpPos();
+                            }
+                        }
+                        else
+                        {
+                            _isLerping = false;
+                        }
+                    }
+
+                }
+            }
         }
-        
-	}
-    */
+        if (!UseLerping)
+        {
+            PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+            _number += StepSize;
+            _currentIteration++;
+        }
+
+    }
 }
