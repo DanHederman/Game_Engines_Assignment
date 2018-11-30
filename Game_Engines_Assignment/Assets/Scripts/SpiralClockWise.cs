@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phyllotaxis : MonoBehaviour
-{
+public class SpiralClockWise : MonoBehaviour {
 
     public AudioPeer _audioPeer;
 
@@ -11,7 +10,8 @@ public class Phyllotaxis : MonoBehaviour
     public Color TrailColour;
 
     //public GameObject Dot;
-    public float Degree, Scale;
+    private float SDegree = 6;
+    public float Scale;
     public int NumberStart;
     public int StepSize;
     public int MaxIteration;
@@ -58,7 +58,7 @@ public class Phyllotaxis : MonoBehaviour
     public void SetLerpPos()
     {
 
-        PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+        PhyllotaxisPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
         StartPos = transform.localPosition;
         EndPos = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
 
@@ -72,7 +72,7 @@ public class Phyllotaxis : MonoBehaviour
         _trailMat.SetColor("_tintColour", TrailColour);
         _trailRenderer.material = _trailMat;
         _number = NumberStart;
-        transform.localPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+        transform.localPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
         Forward = true;
 
 
@@ -106,6 +106,12 @@ public class Phyllotaxis : MonoBehaviour
         {
 
         }
+        /*
+        if (Input.GetKeyDown("1"))
+        {
+            SDegree = 140;
+        }
+        */
 
 
         if (UseLerping)
@@ -161,7 +167,7 @@ public class Phyllotaxis : MonoBehaviour
         }
         if (!UseLerping)
         {
-            PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+            PhyllotaxisPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
             transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
             _number += StepSize;
             _currentIteration++;

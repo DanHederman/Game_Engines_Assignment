@@ -365,8 +365,8 @@ MonoBehaviour:
   Repeat: 1
   Invert: 0
   UseScaleAnim: 1
-  UseScaleCurve: 0
-  ScaleAnimMinMax: {x: 0.8, y: 0.5}
+  UseScaleCurve: 1
+  ScaleAnimMinMax: {x: 0.37, y: 0.32}
   ScaleAnimCurve:
     serializedVersion: 2
     m_Curve: []
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioPeer: {fileID: 1296213581}
   TrailColour: {r: 0, g: 0, b: 0, a: 0}
-  Degree: 185
+  Degree: 148
   Scale: 1
   NumberStart: 10000
   StepSize: 1
@@ -956,7 +956,7 @@ MonoBehaviour:
   Invert: 0
   UseScaleAnim: 1
   UseScaleCurve: 0
-  ScaleAnimMinMax: {x: 0.8, y: 0.5}
+  ScaleAnimMinMax: {x: 0.37, y: 0.32}
   ScaleAnimCurve:
     serializedVersion: 2
     m_Curve:
