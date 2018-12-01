@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SpiralClockWise : MonoBehaviour {
+public class SpiralBase : MonoBehaviour {
 
     public AudioPeer _audioPeer;
 
@@ -10,7 +8,7 @@ public class SpiralClockWise : MonoBehaviour {
     public Color TrailColour;
 
     //public GameObject Dot;
-    private float SDegree = 6;
+    private float SDegree;
     public float Scale;
     public int NumberStart;
     public int StepSize;
@@ -45,7 +43,7 @@ public class SpiralClockWise : MonoBehaviour {
 
     private bool Forward;
     public bool Repeat;
-    public bool Invert;
+    public bool Invert = false;
 
     //Scale
     public bool UseScaleAnim, UseScaleCurve;
@@ -84,6 +82,15 @@ public class SpiralClockWise : MonoBehaviour {
 
     private void Update()
     {
+
+        if(Invert == false)
+        {
+            SDegree = -6;
+        }
+        if(Invert == true)
+        {
+            SDegree = 6;
+        }
 
         if (UseScaleAnim)
         {
