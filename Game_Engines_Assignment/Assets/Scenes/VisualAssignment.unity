@@ -383,7 +383,7 @@ MonoBehaviour:
   Invert: 1
   UseScaleAnim: 1
   UseScaleCurve: 0
-  ScaleAnimMinMax: {x: 0.08, y: 0.04}
+  ScaleAnimMinMax: {x: 0.07, y: 0.05}
   ScaleAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -446,7 +446,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 8
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.4
@@ -518,7 +518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &962911635
 Transform:
   m_ObjectHideFlags: 0
@@ -606,20 +606,20 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.109803915, b: 0.95902085, a: 1}
+      key0: {r: 0.041971684, g: 1, b: 0, a: 1}
       key1: {r: 1, g: 0.23921567, b: 0.2458471, a: 1}
-      key2: {r: 1, g: 0.9132487, b: 0, a: 0}
-      key3: {r: 0.4003538, g: 1, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 1, g: 0.93916667, b: 0.17254901, a: 0}
+      key3: {r: 0.043704987, g: 0, b: 1, a: 0}
+      key4: {r: 1, g: 0.9132487, b: 0, a: 0}
+      key5: {r: 0.4003538, g: 1, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 16384
-      ctime2: 49151
-      ctime3: 65535
-      ctime4: 0
-      ctime5: 0
+      ctime1: 13107
+      ctime2: 26214
+      ctime3: 39321
+      ctime4: 52428
+      ctime5: 65535
       ctime6: 0
       ctime7: 0
       atime0: 0
@@ -631,7 +631,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 4
+      m_NumColorKeys: 6
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseMicrophone: 0
-  AudioClip: {fileID: 8300000, guid: 9bee2b0d0dda86848b47a28efa33a4d8, type: 3}
+  AudioClip: {fileID: 8300000, guid: ab7e14f8a92c2c0408df6f67fa83b14f, type: 3}
   SelectedDevice: 
   MixerGroupMic: {fileID: 243334590298779256, guid: a0a2a6dd805cad04cb690521429b6fb6,
     type: 2}
@@ -823,8 +823,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tunnel: {fileID: 235095994}
   AudioPeer: {fileID: 1296213581}
-  SpeedOfTunnel: 10
-  DistanceOfCamera: -600
+  SpeedOfTunnel: 8
+  DistanceOfCamera: -500
 --- !u!81 &1359040363
 AudioListener:
   m_ObjectHideFlags: 0
@@ -965,7 +965,7 @@ MonoBehaviour:
   Invert: 0
   UseScaleAnim: 1
   UseScaleCurve: 0
-  ScaleAnimMinMax: {x: 0.08, y: 0.04}
+  ScaleAnimMinMax: {x: 0.07, y: 0.05}
   ScaleAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -990,8 +990,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ScaleAnimSpeed: 1
-  ScaleBand: 3
+  ScaleAnimSpeed: 7
+  ScaleBand: 2
 --- !u!96 &1827583172
 TrailRenderer:
   serializedVersion: 2
@@ -1028,7 +1028,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 8
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.4
@@ -1049,17 +1049,17 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.109803915, g: 0.31309903, b: 1, a: 1}
-      key1: {r: 0.4003538, g: 1, b: 0, a: 1}
-      key2: {r: 0.4003538, g: 1, b: 0, a: 0}
-      key3: {r: 0.4003538, g: 1, b: 0, a: 0}
+      key0: {r: 0.13783605, g: 0.109803915, b: 1, a: 1}
+      key1: {r: 0.9528302, g: 0.56573546, b: 0, a: 1}
+      key2: {r: 0, g: 0.9538765, b: 1, a: 0}
+      key3: {r: 0.9637351, g: 0, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 65535
+      ctime1: 16384
+      ctime2: 49151
       ctime3: 65535
       ctime4: 0
       ctime5: 0
@@ -1074,7 +1074,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 2
+      m_NumColorKeys: 4
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0

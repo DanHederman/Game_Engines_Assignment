@@ -5,7 +5,7 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
 
     public AudioPeer _audioPeer;
 
-    private float Degree = 120;
+    private float Degree = 8;
     public float Scale;
     public int NumberStart;
     public int StepSize;
@@ -17,8 +17,6 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
     private Vector2 PhyllotaxisPosition;
 
     public bool Repeat;
-    
-
    
     private float ScaleTmr, CurrentScale;
 
@@ -55,24 +53,34 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
             Degree = 175;
         }
 
+        if (Input.GetKeyDown("5"))
+        {
+            Degree = 220;
+        }
+
+        if (Input.GetKeyDown("6"))
+        {
+            Degree = 260;
+        }
+
+        if (Input.GetKeyDown("7"))
+        {
+            Degree = 301;   
+        }
+
+        //Circular Spiral
+        if (Input.GetKeyDown("0"))
+        {
+            Degree = 8;
+        }
+
         //Invert
         if (Input.GetKeyDown("i"))
         {
             Degree = -Degree;
         }
 
-        if (Input.GetKeyDown("backspace"))
-        {
-            if(gameObject.activeSelf == true)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.activeSelf == false)
-            {
-                gameObject.SetActive(true);
-            }
-            
-        }
+        //Call Phyllotaxis algorithm and set positions
 
         PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
         transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);

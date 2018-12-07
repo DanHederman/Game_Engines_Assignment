@@ -4,9 +4,6 @@ public class SpiralBase : MonoBehaviour {
 
     public AudioPeer _audioPeer;
 
-    private Material _trailMat;
-    public Color TrailColour;
-
     //public GameObject Dot;
     private float SDegree;
     public float Scale;
@@ -14,15 +11,9 @@ public class SpiralBase : MonoBehaviour {
     public int StepSize;
     public int MaxIteration;
 
-    //Lerping
-    public bool UseLerping;
 
-    private bool _isLerping;
     public Vector3 StartPos, EndPos;
-    private float _lerpPosTimer, _lerpPosSpeed;
-    public Vector2 LerpPosSpeedMinMax;
-    public AnimationCurve LerpPosAnimCurve;
-    public int LerpPosBand;
+
 
     private int _number;
     private int _currentIteration;
@@ -65,18 +56,10 @@ public class SpiralBase : MonoBehaviour {
     private void Awake()
     {
         CurrentScale = Scale;
-        _trailRenderer = GetComponent<TrailRenderer>();
-        _trailMat = new Material(_trailRenderer.material);
-        _trailMat.SetColor("_tintColour", TrailColour);
-        _trailRenderer.material = _trailMat;
+
         _number = NumberStart;
         transform.localPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
         Forward = true;
-
-
-        if (!UseLerping) return;
-        _isLerping = true;
-        SetLerpPos();
     }
 
 
@@ -85,11 +68,11 @@ public class SpiralBase : MonoBehaviour {
 
         if(Invert == false)
         {
-            SDegree = -6;
+            SDegree = -8;
         }
         if(Invert == true)
         {
-            SDegree = 6;
+            SDegree = 8;
         }
 
         if (UseScaleAnim)
@@ -109,76 +92,13 @@ public class SpiralBase : MonoBehaviour {
                 CurrentScale = Mathf.Lerp(ScaleAnimMinMax.x, ScaleAnimMinMax.y, _audioPeer.AudioBand[ScaleBand]);
             }
         }
-        else
-        {
 
-        }
-        /*
-        if (Input.GetKeyDown("1"))
-        {
-            SDegree = 140;
-        }
-        */
-
-
-        if (UseLerping)
-        {
-            if (_isLerping)
-            {
-                _lerpPosSpeed = Mathf.Lerp(LerpPosSpeedMinMax.x, LerpPosSpeedMinMax.y, LerpPosAnimCurve.Evaluate(_audioPeer.AudioBand[LerpPosBand]));
-                _lerpPosTimer += Time.deltaTime * _lerpPosSpeed;
-                transform.localPosition = Vector3.Lerp(StartPos, EndPos, Mathf.Clamp01(_lerpPosTimer));
-                if (_lerpPosTimer >= 1)
-                {
-                    _lerpPosTimer -= 1;
-
-                    if (Forward)
-                    {
-                        _number += StepSize;
-                        _currentIteration++;
-                    }
-                    else
-                    {
-                        _number -= StepSize;
-                        _currentIteration--;
-                    }
-                    if ((_currentIteration > 0) && (_currentIteration < MaxIteration))
-                    {
-                        SetLerpPos();
-                    }
-                    //Current iter hit 0/max
-                    else
-                    {
-                        if (Repeat)
-                        {
-                            if (Invert)
-                            {
-                                Forward = !Forward;
-                                SetLerpPos();
-                            }
-                            else
-                            {
-                                _number = NumberStart;
-                                _currentIteration = 0;
-                                SetLerpPos();
-                            }
-                        }
-                        else
-                        {
-                            _isLerping = false;
-                        }
-                    }
-
-                }
-            }
-        }
-        if (!UseLerping)
-        {
-            PhyllotaxisPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
-            transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
-            _number += StepSize;
-            _currentIteration++;
-        }
+        
+       PhyllotaxisPosition = CalcPhyllotaxis(SDegree, CurrentScale, _number);
+       transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+       _number += StepSize;
+       _currentIteration++;
+        
 
     }
 }
