@@ -344,41 +344,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaafd251b57b0c04fb4abc3117b83d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPeer: {fileID: 1296213581}
-  TrailColour: {r: 0, g: 0, b: 0, a: 0}
+  AudioPeer: {fileID: 1296213581}
   Scale: 1
   NumberStart: 10000
   StepSize: 1
   MaxIteration: 10000
-  UseLerping: 0
   StartPos: {x: 0, y: 0, z: 0}
   EndPos: {x: 0, y: 0, z: 0}
-  LerpPosSpeedMinMax: {x: 30, y: 500}
-  LerpPosAnimCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  LerpPosBand: 0
   Repeat: 1
   Invert: 1
   UseScaleAnim: 1
@@ -426,7 +398,7 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 20bfb596dea3ee04ca340bddf3dadcd1, type: 2}
+  - {fileID: 2100000, guid: 32e1389f6623b72439ecb71eb3390b85, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -469,19 +441,19 @@ TrailRenderer:
       serializedVersion: 2
       key0: {r: 1, g: 0.109803915, b: 0.95902085, a: 1}
       key1: {r: 0.23921567, g: 0.34782073, b: 1, a: 1}
-      key2: {r: 0, g: 0.94866323, b: 1, a: 0}
-      key3: {r: 1, g: 0.98929787, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 1, g: 0, b: 0.029715061, a: 0}
+      key3: {r: 0.12347627, g: 1, b: 0, a: 0}
+      key4: {r: 1, g: 0, b: 0.49897194, a: 0}
+      key5: {r: 1, g: 0.98929787, b: 0, a: 0}
+      key6: {r: 1, g: 0.98929787, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 16384
-      ctime2: 49151
-      ctime3: 65535
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
+      ctime1: 13107
+      ctime2: 26214
+      ctime3: 39321
+      ctime4: 52428
+      ctime5: 65535
+      ctime6: 65535
       ctime7: 0
       atime0: 0
       atime1: 65535
@@ -492,7 +464,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 4
+      m_NumColorKeys: 6
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -543,12 +515,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27677bd3bf9161c4896b903de0ffe87d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPeer: {fileID: 1296213581}
+  _audioPeer: {fileID: 0}
   Scale: 1
   NumberStart: 10000
   StepSize: 1
-  MaxIteration: 10000
-  Repeat: 1
+  Repeat: 0
 --- !u!96 &962911637
 TrailRenderer:
   serializedVersion: 2
@@ -606,12 +577,12 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.041971684, g: 1, b: 0, a: 1}
-      key1: {r: 1, g: 0.23921567, b: 0.2458471, a: 1}
-      key2: {r: 1, g: 0.93916667, b: 0.17254901, a: 0}
-      key3: {r: 0.043704987, g: 0, b: 1, a: 0}
-      key4: {r: 1, g: 0.9132487, b: 0, a: 0}
-      key5: {r: 0.4003538, g: 1, b: 0, a: 0}
+      key0: {r: 0.80604506, g: 0, b: 1, a: 1}
+      key1: {r: 0, g: 0.9529412, b: 0.12676698, a: 1}
+      key2: {r: 1, g: 0.7734132, b: 0, a: 0}
+      key3: {r: 0.020617485, g: 0, b: 1, a: 0}
+      key4: {r: 1, g: 0.9996287, b: 0, a: 0}
+      key5: {r: 0.9637351, g: 0, b: 1, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
@@ -670,7 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseMicrophone: 0
-  AudioClip: {fileID: 8300000, guid: ab7e14f8a92c2c0408df6f67fa83b14f, type: 3}
+  AudioClip: {fileID: 8300000, guid: 81110a451f4a43a4b8dce566b073b0bd, type: 3}
   SelectedDevice: 
   MixerGroupMic: {fileID: 243334590298779256, guid: a0a2a6dd805cad04cb690521429b6fb6,
     type: 2}
@@ -682,8 +653,8 @@ MonoBehaviour:
   AmplitideHighest: 0
   _AudioProfile: 0
   channel: 0
-  _audioBand64: []
-  _audioBandBuffer64: []
+  AudioBand64: []
+  AudioBandBuffer64: []
 --- !u!82 &1296213582
 AudioSource:
   m_ObjectHideFlags: 0
@@ -926,41 +897,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaafd251b57b0c04fb4abc3117b83d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPeer: {fileID: 1296213581}
-  TrailColour: {r: 0, g: 0, b: 0, a: 0}
+  AudioPeer: {fileID: 1296213581}
   Scale: 1
   NumberStart: 10000
   StepSize: 1
   MaxIteration: 10000
-  UseLerping: 0
   StartPos: {x: 0, y: 0, z: 0}
   EndPos: {x: 0, y: 0, z: 0}
-  LerpPosSpeedMinMax: {x: 30, y: 500}
-  LerpPosAnimCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  LerpPosBand: 0
   Repeat: 1
   Invert: 0
   UseScaleAnim: 1
@@ -1008,7 +951,7 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 20bfb596dea3ee04ca340bddf3dadcd1, type: 2}
+  - {fileID: 2100000, guid: 32e1389f6623b72439ecb71eb3390b85, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1051,20 +994,20 @@ TrailRenderer:
       serializedVersion: 2
       key0: {r: 0.13783605, g: 0.109803915, b: 1, a: 1}
       key1: {r: 0.9528302, g: 0.56573546, b: 0, a: 1}
-      key2: {r: 0, g: 0.9538765, b: 1, a: 0}
-      key3: {r: 0.9637351, g: 0, b: 1, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 1, g: 0.95848835, b: 0, a: 0}
+      key3: {r: 0.42116004, g: 0.81960785, b: 0.32941177, a: 0}
+      key4: {r: 0, g: 0.9538765, b: 1, a: 0}
+      key5: {r: 0.9637351, g: 0, b: 1, a: 0}
+      key6: {r: 0.9637351, g: 0, b: 1, a: 0}
+      key7: {r: 0.9637351, g: 0, b: 1, a: 0}
       ctime0: 0
-      ctime1: 16384
-      ctime2: 49151
-      ctime3: 65535
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
+      ctime1: 13107
+      ctime2: 26214
+      ctime3: 39321
+      ctime4: 52428
+      ctime5: 65535
+      ctime6: 65535
+      ctime7: 65535
       atime0: 0
       atime1: 65535
       atime2: 0
@@ -1074,7 +1017,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 4
+      m_NumColorKeys: 6
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0

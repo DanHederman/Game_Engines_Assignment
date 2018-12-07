@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 public class AudioPeer : MonoBehaviour
 {
 
-    AudioSource AudioSource;
+    AudioSource _audioSource;
 
     //Mic Input
     public bool UseMicrophone;
@@ -15,16 +15,16 @@ public class AudioPeer : MonoBehaviour
     public string SelectedDevice;
     public AudioMixerGroup MixerGroupMic, MixerGroupMaster;
 
-    private readonly float[] SamplesLeft = new float[512];
-    private readonly float[] SamplesRight = new float[512];
+    private readonly float[] _samplesLeft = new float[512];
+    private readonly float[] _samplesRight = new float[512];
 
-    private readonly float[] FreqBand = new float[8];
+    private readonly float[] _freqBand = new float[8];
 
     private readonly float[] _bandBuffer = new float[8];
 
-    private readonly float[] BufferDecrease = new float[8];
+    private readonly float[] _bufferDecrease = new float[8];
 
-    private readonly float[] FreqBandHighest = new float[8];
+    private readonly float[] _freqBandHighest = new float[8];
 
 
     [HideInInspector]
@@ -53,7 +53,7 @@ public class AudioPeer : MonoBehaviour
     float[] _freqBandHighest64 = new float[64];
 
     [HideInInspector]
-    public float[] _audioBand64, _audioBandBuffer64;
+    public float[] AudioBand64, AudioBandBuffer64;
 
 
 
@@ -63,9 +63,9 @@ public class AudioPeer : MonoBehaviour
 
         AudioBand = new float[8];
         AudioBandBuffer = new float[8];
-        _audioBand64 = new float[64];
-        _audioBandBuffer64 = new float[64];
-        AudioSource = GetComponent<AudioSource>();
+        AudioBand64 = new float[64];
+        AudioBandBuffer64 = new float[64];
+        _audioSource = GetComponent<AudioSource>();
         AudioProfile(_AudioProfile);
 
         if (UseMicrophone)
@@ -73,27 +73,27 @@ public class AudioPeer : MonoBehaviour
             if (Microphone.devices.Length > 0)
             {
                 SelectedDevice = Microphone.devices[0].ToString();
-                AudioSource.outputAudioMixerGroup = MixerGroupMic;
-                AudioSource.clip = Microphone.Start(SelectedDevice, true, 10, AudioSettings.outputSampleRate);
+                _audioSource.outputAudioMixerGroup = MixerGroupMic;
+                _audioSource.clip = Microphone.Start(SelectedDevice, true, 10, AudioSettings.outputSampleRate);
             }
             else
             {
-                AudioSource.outputAudioMixerGroup = MixerGroupMaster;
+                _audioSource.outputAudioMixerGroup = MixerGroupMaster;
                 UseMicrophone = false;
             }
         }
         else
         {
-            AudioSource.clip = AudioClip;
+            _audioSource.clip = AudioClip;
         }
 
-        AudioSource.Play();
+        _audioSource.Play();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (AudioSource.clip == null) return;
+        if (_audioSource.clip == null) return;
         GetSpectrumAudioSource();
         MakeFrequencyBands();
         BandBuffer();
@@ -103,8 +103,8 @@ public class AudioPeer : MonoBehaviour
 
     void GetSpectrumAudioSource()
     {
-        AudioSource.GetSpectrumData(SamplesLeft, 0, FFTWindow.Blackman);
-        AudioSource.GetSpectrumData(SamplesRight, 1, FFTWindow.Blackman);
+        _audioSource.GetSpectrumData(_samplesLeft, 0, FFTWindow.Blackman);
+        _audioSource.GetSpectrumData(_samplesRight, 1, FFTWindow.Blackman);
     }
 
     private void MakeFrequencyBands()
@@ -126,13 +126,13 @@ public class AudioPeer : MonoBehaviour
                 switch (channel)
                 {
                     case Channel.Stereo:
-                        average += SamplesLeft[count] + SamplesRight[count] * (count + 1);
+                        average += _samplesLeft[count] + _samplesRight[count] * (count + 1);
                         break;
                     case Channel.Right:
-                        average += SamplesRight[count] * (count + 1);
+                        average += _samplesRight[count] * (count + 1);
                         break;
                     case Channel.Left:
-                        average += SamplesLeft[count] * (count + 1);
+                        average += _samplesLeft[count] * (count + 1);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -142,7 +142,7 @@ public class AudioPeer : MonoBehaviour
             }
             average /= count;
 
-            FreqBand[i] = average * 10;
+            _freqBand[i] = average * 10;
         }
     }
 
@@ -150,15 +150,15 @@ public class AudioPeer : MonoBehaviour
     {
         for (var g = 0; g < 8; ++g)
         {
-            if (FreqBand[g] > _bandBuffer[g])
+            if (_freqBand[g] > _bandBuffer[g])
             {
-                _bandBuffer[g] = FreqBand[g];
-                BufferDecrease[g] = 0.005f;
+                _bandBuffer[g] = _freqBand[g];
+                _bufferDecrease[g] = 0.005f;
             }
 
-            if (!(FreqBand[g] < _bandBuffer[g])) continue;
-            _bandBuffer[g] -= BufferDecrease[g];
-            BufferDecrease[g] *= 1.2f;
+            if (!(_freqBand[g] < _bandBuffer[g])) continue;
+            _bandBuffer[g] -= _bufferDecrease[g];
+            _bufferDecrease[g] *= 1.2f;
         }
     }
 
@@ -166,14 +166,14 @@ public class AudioPeer : MonoBehaviour
     {
         for (var i = 0; i < 8; i++)
         {
-            if (FreqBand[i] > FreqBandHighest[i])
+            if (_freqBand[i] > _freqBandHighest[i])
             {
-                FreqBandHighest[i] = FreqBand[i];
+                _freqBandHighest[i] = _freqBand[i];
 
             }
 
-            AudioBand[i] = (FreqBand[i] / FreqBandHighest[i]);
-            _bandBuffer[i] = (_bandBuffer[i] / FreqBandHighest[i]);
+            AudioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
+            _bandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
         }
     }
 
@@ -200,7 +200,7 @@ public class AudioPeer : MonoBehaviour
     {
         for (var i = 0; i < 8; i++)
         {
-            FreqBandHighest[i] = 0;
+            _freqBandHighest[i] = 0;
 
         }
     }

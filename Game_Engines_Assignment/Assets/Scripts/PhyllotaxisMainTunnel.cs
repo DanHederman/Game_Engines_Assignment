@@ -5,27 +5,27 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
 
     public AudioPeer _audioPeer;
 
-    private float Degree = 8;
+    private float _degree = 8;
     public float Scale;
     public int NumberStart;
     public int StepSize;
-    public int MaxIteration;
+    //public int MaxIteration;
 
     private int _number;
-    private int _currentIteration;
+    //private int _currentIteration;
 
-    private Vector2 PhyllotaxisPosition;
+    private Vector2 _phyllotaxisPosition;
 
     public bool Repeat;
    
-    private float ScaleTmr, CurrentScale;
+    private float _scaleTmr, _currentScale;
 
 
     private void Awake()
     {
-        CurrentScale = Scale;   
+        _currentScale = Scale;   
         _number = NumberStart;
-        transform.localPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
+        transform.localPosition = CalcPhyllotaxis(_degree, _currentScale, _number);
     }
 
 
@@ -34,63 +34,64 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
         //Spinning triangle
         if (Input.GetKeyDown("1"))
         {
-            Degree = 121;
+            _degree = 121;
         }
 
         //Spinning square
         if (Input.GetKeyDown("2")){
-            Degree = 91;
+            _degree = 91;
         }
 
-
+        //5 point star
         if (Input.GetKeyDown("3"))
         {
-            Degree = 145;
+            _degree = 145;
         }
 
+        //Multi point spiral
         if (Input.GetKeyDown("4"))
         {
-            Degree = 175;
+            _degree = 175;
         }
 
         if (Input.GetKeyDown("5"))
         {
-            Degree = 220;
+            _degree = 220;
         }
 
         if (Input.GetKeyDown("6"))
         {
-            Degree = 260;
+            _degree = 260;
         }
 
         if (Input.GetKeyDown("7"))
         {
-            Degree = 301;   
+            _degree = 301;   
         }
 
         //Circular Spiral
         if (Input.GetKeyDown("0"))
         {
-            Degree = 8;
+            _degree = 8;
         }
 
         //Invert
         if (Input.GetKeyDown("i"))
         {
-            Degree = -Degree;
+            _degree = -_degree;
         }
 
         //Call Phyllotaxis algorithm and set positions
 
-        PhyllotaxisPosition = CalcPhyllotaxis(Degree, CurrentScale, _number);
-        transform.localPosition = new Vector3(PhyllotaxisPosition.x, PhyllotaxisPosition.y, 0);
+        _phyllotaxisPosition = CalcPhyllotaxis(_degree, _currentScale, _number);
+        transform.localPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
         _number += StepSize;
-        _currentIteration++;
+        //_currentIteration++;
     }
 
-    private Vector2 CalcPhyllotaxis(float Deg, float Scale, int number)
+    private Vector2 CalcPhyllotaxis(float deg, float Scale, int number)
     {
-        double angle = number * (Deg * Mathf.Deg2Rad);
+        double angle = number * (deg * Mathf.Deg2Rad);
         var r = Scale * Mathf.Sqrt(number);
         var x = r * (float)System.Math.Cos(angle);
         var y = r * (float)System.Math.Sin(angle);
