@@ -42,10 +42,10 @@ In its default state when the play button is pressed unity will begin by startin
 The default shape of the tunnel is a spiral, this makes it clear that the spirals running down the centre are independent of the main tunnel. There are a number of shapes that are avaliable and
 they can be applied by using the number keys as follows.
 
-* 1) Triangle
-* 2) Square
-* 3) 5 Point Star 
-* 4) Narrow tunnel with wide trail effects
+* 1 Triangle
+* 2 Square
+* 3 5 Point Star 
+* 4 Narrow tunnel with wide trail effects
 * 5) Narrow tunnel, multiple star points on outside of tunnel 
 * 6) Narrow tunnel, similar star points to 5 (more points)
 * 7) Hexagon
