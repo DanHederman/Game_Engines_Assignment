@@ -38,7 +38,9 @@ A colour gradient will be used to alter the colour of both the tunnel and the sp
 
 ## What The Project Does
 
-The project aims to present a visual experince that is controlled by audio with effects that are unique to the audio track being fed to the program. 
+The project aims to present a visual experince that is controlled by audio with effects that are unique to the audio track being fed to the program. The project can either use a microphone
+to listen to sound and control the tunnel/effects based on noise it picks up. The project can also have a track given to it by the user. The bands that effect the patterns of the spirals can be 
+changed to a different band. There will also be a spinning cube that will be transparent that will track down the tunnel.
 
 ## How It Works
 
