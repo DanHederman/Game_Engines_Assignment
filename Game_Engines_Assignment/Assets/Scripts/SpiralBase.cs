@@ -59,11 +59,11 @@ public class SpiralBase : MonoBehaviour {
 
         if(Invert == false)
         {
-            _sDegree = -8;
+            _sDegree = -6;
         }
         if(Invert == true)
         {
-            _sDegree = 8;
+            _sDegree = 6;
         }
 
         if (UseScaleAnim)

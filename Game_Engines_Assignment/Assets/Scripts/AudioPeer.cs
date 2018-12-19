@@ -72,9 +72,9 @@ public class AudioPeer : MonoBehaviour
         {
             if (Microphone.devices.Length > 0)
             {
-                SelectedDevice = Microphone.devices[0].ToString();
+                SelectedDevice = Microphone.devices[1].ToString();
                 _audioSource.outputAudioMixerGroup = MixerGroupMic;
-                _audioSource.clip = Microphone.Start(SelectedDevice, true, 10, AudioSettings.outputSampleRate);
+                _audioSource.clip = Microphone.Start(SelectedDevice, true, 240, AudioSettings.outputSampleRate);
             }
             else
             {
