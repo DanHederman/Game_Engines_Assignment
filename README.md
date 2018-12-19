@@ -16,7 +16,7 @@ A repository for my Game Engines assignment
 The idea is to create either a wormhole/blackhole or tunnel in which a person/creature will be propelled down with random shapes passing the subject of the program changing colours, 
 spinning in differnt directions, this may be changed to the wormhole/black hole changing colours using a colour gradient. The following are the videos that inspired the idea.
 
-* [![YouTube](Californication - Red Hot Chili Peppers: https://www.youtube.com/watch?v=YlUKcNNmywk)
+* Californication - Red Hot Chili Peppers: https://www.youtube.com/watch?v=YlUKcNNmywk 
 * Saturnz Barz - Gorillaz: https://www.youtube.com/watch?v=5qJp6xlKEug 
 * Do I Wanna Know - Arctic Monkeys: https://www.youtube.com/watch?v=bpOSxM0rNPM
 
@@ -35,6 +35,10 @@ Changes inspired by:
 * https://www.youtube.com/watch?v=paAq8k55K9A
 
 A colour gradient will be used to alter the colour of both the tunnel and the spirals.
+
+## What The Project Does
+
+The project aims to present a visual experince that is controlled by audio with effects that are unique to the audio track being fed to the program. 
 
 ## How It Works
 
@@ -76,3 +80,12 @@ There are a number of different audio tracks inclued in the project which can be
 
 Two separate materials were used for the tunnel and the spiral. This allowed the transparency for the main tunnel shape to be altered without impacting the transparency of the trails for the
 spirals.
+
+## Development
+
+The Game Engines module was taken with no prior knowledge of Unity. To say any part of this project was developed without any assistance from either online tutorials or examples from class would 
+simply be a false claim. The audio reactive aspect of the project was done using a tutorial found on the Unity community site. However, this tutorial was not all conclusive. There were parts 
+that did not work and as a result required tweaking in order to give them fuctionality. There were other parts that needed to be altered in order to achieve what I was aiming for. The idea to 
+use the phyllotaxis algorithm as the base for the project came from biology. It describes the method by which plants arrange their leaves in patterns. Using a trail renderer to create the patterns 
+made sense as it allowed the backend of the tunnel to disipate and made it possible to utilise a colour gradient. The other parts of the project were a combination of tutorials and alterations of 
+tutorials to try and achieve the desired effects. 

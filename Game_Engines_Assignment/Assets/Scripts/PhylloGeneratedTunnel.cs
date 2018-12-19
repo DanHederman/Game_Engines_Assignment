@@ -5,6 +5,7 @@ public class PhylloGeneratedTunnel : MonoBehaviour {
     public Transform Tunnel;
     public AudioPeer AudioPeer;
     public float SpeedOfTunnel, DistanceOfCamera;
+    public Transform cube;
 
     private bool control;
 
@@ -18,7 +19,7 @@ public class PhylloGeneratedTunnel : MonoBehaviour {
     // Update is called once per frame
     private void Update () {
 
-
+        // Activate/Deactivate tunnel controls
         if (Input.GetKey(KeyCode.C))
         {
             control = true;
@@ -28,6 +29,7 @@ public class PhylloGeneratedTunnel : MonoBehaviour {
             control = false;
         }
         
+        //If control enabled
         if(control == true)
         {
             if (Input.GetKey(KeyCode.W))
@@ -60,10 +62,13 @@ public class PhylloGeneratedTunnel : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x, transform.position.y, Tunnel.position.z + DistanceOfCamera);
             }
         }
+
+        //If control disabled
         else
         {
             Tunnel.position = new Vector3(Tunnel.position.x, Tunnel.position.y, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
             transform.position = new Vector3(transform.position.x, transform.position.y, Tunnel.position.z + DistanceOfCamera);
+            cube.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - (.05f * DistanceOfCamera));
         }
     }
 }

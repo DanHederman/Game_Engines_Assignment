@@ -86,7 +86,6 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
         _phyllotaxisPosition = CalcPhyllotaxis(_degree, _currentScale, _number);
         transform.localPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
         _number += StepSize;
-        //_currentIteration++;
     }
 
     private Vector2 CalcPhyllotaxis(float deg, float Scale, int number)
