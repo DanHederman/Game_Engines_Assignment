@@ -30,4 +30,23 @@ contribute to:
 * Adding effects to a spiral(s) going down the centre of the tunnel
 * Allowing Audio to be taken in from the mic or from a track directly fed to the program
 
+Changes inspired by: 
+
+* https://www.youtube.com/watch?v=paAq8k55K9A
+
 A colour gradient will be used to alter the colour of both the tunnel and the spirals.
+
+## How It Works
+
+In its default state when the play button is pressed unity will begin by starting the audio track and forming the trails that will make up both of the spirals and the main shape of the tunnel.
+The default shape of the tunnel is a spiral, this makes it clear that the spirals running down the centre are independent of the main tunnel. There are a number of shapes that are avaliable and
+they can be applied by using the number keys as follows.
+
+* 1) Triangle
+* 2) Square
+* 3) 5 Point Star 
+* 4) Narrow tunnel with wide trail effects
+* 5) Narrow tunnel, multiple star points on outside of tunnel 
+* 6) Narrow tunnel, similar star points to 5 (more points)
+* 7) Hexagon
+* 0) Spiral (default shape)
