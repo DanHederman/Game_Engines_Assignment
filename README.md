@@ -26,9 +26,9 @@ The project ended up taking a slightly differnt direction then originally intend
 down the tunnel was scrapped because it would take away from the main focus, the tunnel. Instead it was decided a better approach would be to implement audio features. The audio features would 
 contribute to:
 
-* Controlling the speed of the tunnel
-* Adding effects to a spiral(s) going down the centre of the tunnel
-* Allowing Audio to be taken in from the mic or from a track directly fed to the program
+* Controlling the speed of the tunnel.
+* Adding effects to a spiral(s) going down the centre of the tunnel.
+* Allowing Audio to be taken in from the mic or from a track directly fed to the program.
 
 Changes inspired by: 
 
@@ -42,24 +42,37 @@ In its default state when the play button is pressed unity will begin by startin
 The default shape of the tunnel is a spiral, this makes it clear that the spirals running down the centre are independent of the main tunnel. There are a number of shapes that are avaliable and
 they can be applied by using the number keys as follows.
 
-* 1 Triangle
-* 2 Square
-* 3 Five Point Star 
-* 4 Narrow tunnel with wide trail effects
-* 5 Narrow tunnel, multiple star points on outside of tunnel 
-* 6 Narrow tunnel, similar star points to 5 (more points)
-* 7 Hexagon
-* 0 Spiral (default shape)
+* 1 Triangle.
+* 2 Square.
+* 3 Five Point Star.
+* 4 Narrow tunnel with wide trail effects.
+* 5 Narrow tunnel, multiple star points on outside of tunnel. 
+* 6 Narrow tunnel, similar star points to 5 (more points).
+* 7 Hexagon.
+* 0 Spiral (default shape).
 
-There are also additional controls that are avaliable for the project
+There are also additional controls that are avaliable for the project.
 
-* i Changes the direction of the spin of the tunnel
-* c Enables limited player control of the tunnel
-* x Disables the player control of the tunnel (this is the default)
+* i Changes the direction of the spin of the tunnel.
+* c Enables limited player control of the tunnel.
+* x Disables the player control of the tunnel (this is the default).
 
 It is also possible to change the gradient colours of both the spirals and the tunnel itself. 
 
-* Navigate to the inspector of the GameObject to be changed (MainTunnelShape, TrailClockwise, TrailAntiClockwise - All are children of Tunnel)
+* Navigate to the inspector of the GameObject to be changed (MainTunnelShape, TrailClockwise, TrailAntiClockwise - All are children of Tunnel).
 * Under the trail renderer component a new colour can be selected from either the existing presets or a new colour gradient can be created.
-* The duration of the trail, its width, material etc can also be adjusted here
+* The duration of the trail, its width, material etc can also be adjusted here.
 
+The inspector can also be used in a similar way to enable or disable the mirophone feature.
+
+* Microphone disabled (default state) will result in the audio track that was given to the project to be used to control the tunnel and effects.
+* Microphone enabled will see the tunnel controlled by whatever noise the mic picks up.
+
+There are a number of different audio tracks inclued in the project which can be used for the tunnel.
+
+* Open the inspector for the GameObject called Audio there will be a field called Audio Clip.
+* In the assets foler titled Audio there are a numeber of tracks that can be used.
+* Drag the track from the Audio folder to the Audio Peer script field Audio clip.
+
+Two separate materials were used for the tunnel and the spiral. This allowed the transparency for the main tunnel shape to be altered without impacting the transparency of the trails for the
+spirals.
