@@ -23,4 +23,11 @@ spinning in differnt directions, this may be changed to the wormhole/black hole 
 ## Updated Proposal
 
 The project ended up taking a slightly differnt direction then originally intended. The idea for a tunnel was still kept as the main feature for end product. The idea to have a creature propelled
-down the tunnel was scrapped because it would take away from the main focus, the tunnel. Instead it was decided a better approach would be to implement audio features. 
+down the tunnel was scrapped because it would take away from the main focus, the tunnel. Instead it was decided a better approach would be to implement audio features. The audio features would 
+contribute to:
+
+* Controlling the speed of the tunnel
+* Adding effects to a spiral(s) going down the centre of the tunnel
+* Allowing Audio to be taken in from the mic or from a track directly fed to the program
+
+A colour gradient will be used to alter the colour of both the tunnel and the spirals.
