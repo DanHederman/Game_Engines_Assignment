@@ -1,4 +1,7 @@
-# Game_Engines_Assignment
+# Game Engines Assignment
+
+**Version 1.0.0**
+
 This is the repository for my game engines assignment
 
 The idea I have in mind is to create either a wormhole or blackhole in which a person/creature will be propelled down with random shapes passing the subject of the program changing colours, spinning in differnt directions, this may be changed to the wormhole/black hole changing colours in a fading type fashion. The following are the videos that inspired the idea.
