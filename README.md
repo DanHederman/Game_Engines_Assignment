@@ -44,9 +44,22 @@ they can be applied by using the number keys as follows.
 
 * 1 Triangle
 * 2 Square
-* 3 5 Point Star 
+* 3 Five Point Star 
 * 4 Narrow tunnel with wide trail effects
-* 5) Narrow tunnel, multiple star points on outside of tunnel 
-* 6) Narrow tunnel, similar star points to 5 (more points)
-* 7) Hexagon
-* 0) Spiral (default shape)
+* 5 Narrow tunnel, multiple star points on outside of tunnel 
+* 6 Narrow tunnel, similar star points to 5 (more points)
+* 7 Hexagon
+* 0 Spiral (default shape)
+
+There are also additional controls that are avaliable for the project
+
+* i Changes the direction of the spin of the tunnel
+* c Enables limited player control of the tunnel
+* x Disables the player control of the tunnel (this is the default)
+
+It is also possible to change the gradient colours of both the spirals and the tunnel itself. 
+
+* Navigate to the inspector of the GameObject to be changed (MainTunnelShape, TrailClockwise, TrailAntiClockwise - All are children of Tunnel)
+* Under the trail renderer component a new colour can be selected from either the existing presets or a new colour gradient can be created.
+* The duration of the trail, its width, material etc can also be adjusted here
+
