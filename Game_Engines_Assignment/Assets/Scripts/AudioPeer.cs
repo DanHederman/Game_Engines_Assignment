@@ -12,7 +12,7 @@ public class AudioPeer : MonoBehaviour
     //Mic Input
     public bool UseMicrophone;
     public AudioClip AudioClip;
-    public string SelectedDevice;
+    private string SelectedDevice;
     public AudioMixerGroup MixerGroupMic, MixerGroupMaster;
 
     private readonly float[] _samplesLeft = new float[512];
@@ -31,9 +31,10 @@ public class AudioPeer : MonoBehaviour
 
     [HideInInspector]
     public float Amplitude, AmplitudeBuffer;
+    [HideInInspector]
     public float AmplitideHighest;
 
-    public float _AudioProfile;
+    private float _AudioProfile;
 
     public enum Channel
     {

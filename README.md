@@ -99,7 +99,7 @@ tutorials to try and achieve the desired effects.
 
 ## Aspects to Note
 
-I am particularly happy with how the audio control ended up working for this project. The spirals down either side of the tunnel are unique for each Audio track. I am also relly happy with how the
+I am particularly happy with how the audio control ended up working for this project. The spirals down either side of the tunnel are unique for each audio track. I am also really happy with how the
 microphone feature ended up working, although not consistent due to the quality of the mic used its still a good feature. I also like the variety of shapes used for the tunnel that combined with 
 the colour gradients I made look really psychedelic
 

@@ -15,8 +15,6 @@ public class PhyllotaxisMainTunnel : MonoBehaviour
     //private int _currentIteration;
 
     private Vector2 _phyllotaxisPosition;
-
-    public bool Repeat;
    
     private float _scaleTmr, _currentScale;
 

@@ -31,7 +31,6 @@ public class SpiralBase : MonoBehaviour {
     private Vector2 PhyllotaxisPosition;
 
     private bool Forward;
-    public bool Repeat;
     public bool Invert = false;
 
     //Scale
