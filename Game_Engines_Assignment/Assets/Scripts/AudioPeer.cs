@@ -26,7 +26,6 @@ public class AudioPeer : MonoBehaviour
 
     private readonly float[] _freqBandHighest = new float[8];
 
-
     [HideInInspector]
     public float[] AudioBand, AudioBandBuffer;
 
@@ -34,9 +33,7 @@ public class AudioPeer : MonoBehaviour
     public float Amplitude, AmplitudeBuffer;
     public float AmplitideHighest;
 
-
     public float _AudioProfile;
-
 
     public enum Channel
     {
@@ -46,11 +43,6 @@ public class AudioPeer : MonoBehaviour
     };
 
     public Channel channel = new Channel();
-
-    float[] _freqBand64 = new float[64];
-    float[] _bandBuffer64 = new float[64];
-    float[] _bufferDecrease64 = new float[64];
-    float[] _freqBandHighest64 = new float[64];
 
     [HideInInspector]
     public float[] AudioBand64, AudioBandBuffer64;
@@ -63,11 +55,12 @@ public class AudioPeer : MonoBehaviour
 
         AudioBand = new float[8];
         AudioBandBuffer = new float[8];
-        AudioBand64 = new float[64];
-        AudioBandBuffer64 = new float[64];
+        
         _audioSource = GetComponent<AudioSource>();
         AudioProfile(_AudioProfile);
 
+
+        //Use the microphone for input
         if (UseMicrophone)
         {
             if (Microphone.devices.Length > 0)

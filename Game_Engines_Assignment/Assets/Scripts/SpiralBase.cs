@@ -11,9 +11,7 @@ public class SpiralBase : MonoBehaviour {
     public int StepSize;
     public int MaxIteration;
 
-
     public Vector3 StartPos, EndPos;
-
 
     private int _number;
     private int _currentIteration;
@@ -53,7 +51,6 @@ public class SpiralBase : MonoBehaviour {
         Forward = true;
     }
 
-
     private void Update()
     {
 
@@ -66,6 +63,7 @@ public class SpiralBase : MonoBehaviour {
             _sDegree = 6;
         }
 
+        //Controls the behavious of the spiral
         if (UseScaleAnim)
         {
             if (UseScaleCurve)

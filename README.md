@@ -40,7 +40,7 @@ A colour gradient will be used to alter the colour of both the tunnel and the sp
 
 The project aims to present a visual experince that is controlled by audio with effects that are unique to the audio track being fed to the program. The project can either use a microphone
 to listen to sound and control the tunnel/effects based on noise it picks up. The project can also have a track given to it by the user. The bands that effect the patterns of the spirals can be 
-changed to a different band. There will also be a spinning cube that will be transparent that will track down the tunnel.
+changed to a different band. There is also be a spinning cube that will be transparent that will track down the tunnel.
 
 ## How It Works
 
@@ -82,6 +82,11 @@ There are a number of different audio tracks inclued in the project which can be
 
 Two separate materials were used for the tunnel and the spiral. This allowed the transparency for the main tunnel shape to be altered without impacting the transparency of the trails for the
 spirals.
+
+Finally, it is possible to chenge the position of the camera in the tunnel as well as the tunnel speed by using the inspector.
+
+* Open the inspector for the main camera and go to the phyllo generated tunnel script.
+* Here the position of the camera and speed of the tunnel can be changed.
 
 ## Development
 
