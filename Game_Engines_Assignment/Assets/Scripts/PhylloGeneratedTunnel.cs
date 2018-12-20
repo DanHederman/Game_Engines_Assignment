@@ -36,30 +36,35 @@ public class PhylloGeneratedTunnel : MonoBehaviour {
             {
                 Tunnel.position = new Vector3(Tunnel.position.x, Tunnel.position.y + .5f, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
                 transform.position = new Vector3(transform.position.x, transform.position.y + .5f, Tunnel.position.z + DistanceOfCamera);
+                cube.position = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z - (.05f * DistanceOfCamera));
             }
 
             else if (Input.GetKey(KeyCode.S))
             {
                 Tunnel.position = new Vector3(Tunnel.position.x, Tunnel.position.y - .5f, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
                 transform.position = new Vector3(transform.position.x, transform.position.y - .5f, Tunnel.position.z + DistanceOfCamera);
+                cube.position = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z - (.05f * DistanceOfCamera));
             }
 
             else if (Input.GetKey(KeyCode.A))
             {
                 Tunnel.position = new Vector3(Tunnel.position.x - .5f, Tunnel.position.y, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
                 transform.position = new Vector3(transform.position.x - .5f, transform.position.y, Tunnel.position.z + DistanceOfCamera);
+                cube.position = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z - (.05f * DistanceOfCamera));
             }
 
             else if (Input.GetKey(KeyCode.D))
             {
                 Tunnel.position = new Vector3(Tunnel.position.x + .5f, Tunnel.position.y, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
                 transform.position = new Vector3(transform.position.x + .5f, transform.position.y, Tunnel.position.z + DistanceOfCamera);
+                cube.position = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z - (.05f * DistanceOfCamera));
             }
 
             else
             {
                 Tunnel.position = new Vector3(Tunnel.position.x, Tunnel.position.y, Tunnel.position.z + (AudioPeer.Amplitude * SpeedOfTunnel));
                 transform.position = new Vector3(transform.position.x, transform.position.y, Tunnel.position.z + DistanceOfCamera);
+                cube.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - (.05f * DistanceOfCamera));
             }
         }
 

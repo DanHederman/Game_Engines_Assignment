@@ -91,3 +91,7 @@ that did not work and as a result required tweaking in order to give them fuctio
 use the phyllotaxis algorithm as the base for the project came from biology. It describes the method by which plants arrange their leaves in patterns. Using a trail renderer to create the patterns 
 made sense as it allowed the backend of the tunnel to disipate and made it possible to utilise a colour gradient. The other parts of the project were a combination of tutorials and alterations of 
 tutorials to try and achieve the desired effects. 
+
+## Video of Project
+
+* https://youtu.be/oxqISvYzKc4
