@@ -97,6 +97,12 @@ use the phyllotaxis algorithm as the base for the project came from biology. It 
 made sense as it allowed the backend of the tunnel to disipate and made it possible to utilise a colour gradient. The other parts of the project were a combination of tutorials and alterations of 
 tutorials to try and achieve the desired effects. 
 
+## Aspects to Note
+
+I am particularly happy with how the audio control ended up working for this project. The spirals down either side of the tunnel are unique for each Audio track. I am also relly happy with how the
+microphone feature ended up working, although not consistent due to the quality of the mic used its still a good feature. I also like the variety of shapes used for the tunnel that combined with 
+the colour gradients I made look really psychedelic
+
 ## Video of Project
 
 * https://youtu.be/oxqISvYzKc4
